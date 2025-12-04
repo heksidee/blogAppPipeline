@@ -9,12 +9,6 @@ jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-latest
 
-    services:
-      mongo:
-        image: mongo:6
-        ports:
-          - 27017:27017
-
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -36,7 +30,7 @@ jobs:
       - name: Testing backend
         run: npm test --prefix backend
         env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
 
       - name: Testing frontend
         run: npm test -prefix frontend
