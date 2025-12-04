@@ -8,6 +8,13 @@ on:
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:6
+        ports:
+          - 27017:27017
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
