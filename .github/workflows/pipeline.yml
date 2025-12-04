@@ -13,11 +13,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      # Asentaa riippuvuude front ja back
       - name: Install backend deps
         run: npm ci --prefix backend
 
       - name: Install frontend deps
         run: npm ci --prefix frontend
 
+      # Linttaus
       - name: Check style
         run: npm run lint:all
+
+      # Testaus
+      - name: Testing front- and backend
+        run: npm run test:all
+
+      # Build
+      - name: Build frontend
+        run: npm run build --prefix frontend
