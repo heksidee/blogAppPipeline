@@ -32,7 +32,7 @@ jobs:
       - name: Check style
         run: npm run lint:all
 
-      # Testaus
+      # Testaukset
       - name: Testing backend
         run: npm test --prefix backend
         env:
