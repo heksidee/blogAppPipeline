@@ -1,6 +1,6 @@
-const { test, describe } = require('node:test');
-const assert = require('node:assert');
-const listHelper = require('../utils/list_helper');
+const { test, describe } = require('node:test')
+const assert = require('node:assert')
+const listHelper = require('../utils/list_helper')
 
 describe('favorite blog', () => {
   const manyBlogs = [
@@ -52,10 +52,10 @@ describe('favorite blog', () => {
       likes: 2,
       __v: 0,
     },
-  ];
+  ]
 
   test('has most likes', () => {
-    const result = listHelper.favoriteBlog(manyBlogs);
-    assert.deepStrictEqual(result, 'Canonical string reduction');
-  });
-});
+    const result = listHelper.favoriteBlog(manyBlogs)
+    assert.deepStrictEqual(result, 'Canonical string reduction')
+  })
+})

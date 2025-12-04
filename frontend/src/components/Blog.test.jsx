@@ -1,86 +1,86 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import Blog from './Blog';
-import { expect } from 'vitest';
-import blogs from '../services/blogs';
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import Blog from './Blog'
+import BlogList from './BlogList'
+import { expect, vi, test } from 'vitest'
+import blogs from '../services/blogs'
+import { renderWithProviders } from '../testutils'
 
 test('renders title and author but not url or likes', () => {
   const blog = {
-    title: 'Space Travel',
-    author: 'Michael Pollock',
-    url: 'www.cosmictravel.com',
+    id: 'abc123',
+    title: 'Globe',
+    author: 'Trekker',
+    url: 'www.world.com',
     likes: 5,
     user: {
-      username: 'Albo',
+      username: 'ZeR',
       id: '123',
     },
-  };
+  }
 
-  render(<Blog blog={blog} user={{ username: 'Albo', id: '123' }} />);
+  renderWithProviders(<BlogList blog={blog} user={blog.user} />, {
+    preloadedState: { blogs: { items: [blog] } },
+  })
 
-  expect(
-    screen.getByText(
-      (content) => content.includes('Space Travel') && content.includes('Michael Pollock')
-    )
-  ).toBeInTheDocument();
+  expect(screen.getByText(/Globe.*Trekker/)).toBeInTheDocument()
 
-  expect(screen.queryByText('www.cosmictravel.com')).not.toBeInTheDocument();
-  expect(screen.queryByText(/likes/i)).not.toBeInTheDocument();
-});
+  expect(screen.queryByText('www.world.com')).not.toBeInTheDocument()
+  expect(screen.queryByText(/likes/i)).not.toBeInTheDocument()
+})
 
-test('renders url, likes and user when View clicked', async () => {
+test('renders url, likes and user when Blog clicked', async () => {
   const blog = {
-    title: 'Space Travel',
-    author: 'Michael Pollock',
-    url: 'www.cosmictravel.com',
+    title: 'Globe',
+    author: 'Trekker',
+    url: 'www.world.com',
     likes: 5,
     user: {
-      username: 'Albo',
+      username: 'ZeR',
       id: '123',
     },
-  };
+  }
 
-  const currentUser = {
-    username: 'Albo',
-    id: '123',
-    token: 'fake-token',
-  };
+  renderWithProviders(<Blog blog={blog} user={blog.user} />, {
+    preloadedState: { blogs: { items: [blog] } },
+  })
 
-  render(<Blog blog={blog} user={currentUser} />);
+  const user = userEvent.setup()
+  const button = screen.getByText('Globe')
+  await user.click(button)
 
-  const user = userEvent.setup();
-  const button = screen.getByText('View');
-  await user.click(button);
-
-  expect(screen.getByText('www.cosmictravel.com')).toBeInTheDocument();
-  expect(screen.getByText(/likes/i)).toBeInTheDocument();
-  expect(screen.getByText('Added by: Albo')).toBeInTheDocument();
-});
+  expect(screen.getByText('www.world.com')).toBeInTheDocument()
+  expect(screen.getByText(/likes/i)).toBeInTheDocument()
+  expect(screen.getByText(/Added by:/)).toBeInTheDocument()
+  expect(screen.getByText('ZeR')).toBeInTheDocument()
+})
 
 test('when likes button clicked twice, `Likes` values increases by two', async () => {
   const blog = {
-    title: 'Space Travel',
-    author: 'Michael Pollock',
-    url: 'www.cosmictravel.com',
-    likes: 5,
+    title: 'Globe',
+    author: 'Trekker',
+    url: 'www.world.com',
+    likes: 11,
     user: {
-      username: 'Albo',
+      username: 'ZeR',
       id: '123',
     },
-  };
+  }
 
   vi.spyOn(blogs, 'updateLikes').mockImplementation(async (id, newLikes) => {
-    return { likes: newLikes };
-  });
+    return { likes: newLikes }
+  })
 
-  render(<Blog blog={blog} user={blog.user} />);
+  renderWithProviders(<Blog blog={blog} user={blog.user} />, {
+    preloadedState: { blogs: { items: [blog] } },
+  })
 
-  const user = userEvent.setup();
-  await user.click(screen.getByText('View'));
+  const user = userEvent.setup()
+  await user.click(screen.getByText('Globe'))
 
-  const likeButton = screen.getByText('Like');
-  await user.click(likeButton);
-  await user.click(likeButton);
+  const likeButton = screen.getByRole('button', { name: /11/ })
+  await user.click(likeButton)
+  await user.click(likeButton)
 
-  expect(screen.getByText('Likes: 7')).toBeInTheDocument();
-});
+  expect(screen.getByRole('button', { name: /13/ })).toBeInTheDocument()
+})

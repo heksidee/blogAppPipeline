@@ -1,8 +1,8 @@
-import BlogList from './BlogList';
-import AddBlogForm from './AddBlogForm';
-import Togglable from './Togglable';
+import BlogList from './BlogList'
+import AddBlogForm from './AddBlogForm'
+import Togglable from './Togglable'
 
-const Home = ({ user, blogFormRef, handleCreate }) => {
+const Home = ({ blogFormRef, handleCreate }) => {
   return (
     <>
       <div className="mb-4">
@@ -12,7 +12,7 @@ const Home = ({ user, blogFormRef, handleCreate }) => {
       </div>
       <BlogList />
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

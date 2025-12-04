@@ -1,67 +1,67 @@
-import { useState, useEffect, useRef } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Notification from './components/Notification';
-import Home from './components/Home';
-import Users from './components/Users';
-import User from './components/User';
-import ProtectedRoute from './components/ProtectedRoute';
-import Blog from './components/Blog';
-import { useDispatch, useSelector } from 'react-redux';
-import { setNotification, clearNotification } from './redux/notificationSlice';
-import { fetchBlogs, createBlog } from './redux/blogSlice';
-import { loginUser, restoreUser } from './redux/userSlice';
-import { fetchUsers } from './redux/usersSlice';
+import { useState, useEffect, useRef } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Notification from './components/Notification'
+import Home from './components/Home'
+import Users from './components/Users'
+import User from './components/User'
+import ProtectedRoute from './components/ProtectedRoute'
+import Blog from './components/Blog'
+import { useDispatch, useSelector } from 'react-redux'
+import { setNotification, clearNotification } from './redux/notificationSlice'
+import { fetchBlogs, createBlog } from './redux/blogSlice'
+import { loginUser, restoreUser } from './redux/userSlice'
+import { fetchUsers } from './redux/usersSlice'
 
 const App = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
-  const dispatch = useDispatch();
-  const users = useSelector((state) => state.users);
-  const user = useSelector((state) => state.user);
-
-  useEffect(() => {
-    dispatch(fetchBlogs());
-  }, [dispatch]);
+  const dispatch = useDispatch()
+  //const users = useSelector((state) => state.users)
+  const user = useSelector((state) => state.user)
 
   useEffect(() => {
-    dispatch(restoreUser());
-  }, [dispatch]);
+    dispatch(fetchBlogs())
+  }, [dispatch])
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
+    dispatch(restoreUser())
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(fetchUsers())
+  }, [dispatch])
 
   const notify = (message, type = 'success') => {
-    dispatch(setNotification({ message, type }));
+    dispatch(setNotification({ message, type }))
     setTimeout(() => {
-      dispatch(clearNotification());
-    }, 5000);
-  };
+      dispatch(clearNotification())
+    }, 5000)
+  }
 
   const handleLogin = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     try {
-      await dispatch(loginUser({ username, password }));
-      setUsername('');
-      setPassword('');
-      notify(`User ${username} logged in`, 'success');
+      await dispatch(loginUser({ username, password }))
+      setUsername('')
+      setPassword('')
+      notify(`User ${username} logged in`, 'success')
     } catch (error) {
-      notify('wrong username or password', 'error');
+      notify('wrong username or password', 'error')
     }
-  };
+  }
 
   const handleCreate = async (blog) => {
     try {
-      await dispatch(createBlog(blog));
-      notify(`a new blog "${blog.title}" by ${blog.author} added`, 'success');
-      blogFormRef.current.toggleVisibility();
+      await dispatch(createBlog(blog))
+      notify(`a new blog "${blog.title}" by ${blog.author} added`, 'success')
+      blogFormRef.current.toggleVisibility()
     } catch (error) {
-      notify('Blog creation failed', 'error');
+      notify('Blog creation failed', 'error')
     }
-  };
+  }
 
   const loginForm = () => (
     <form
@@ -98,9 +98,9 @@ const App = () => {
       </div>
       <button type="submit">Login</button>
     </form>
-  );
+  )
 
-  const blogFormRef = useRef();
+  const blogFormRef = useRef()
 
   return (
     <div className="container custom-container">
@@ -152,7 +152,7 @@ const App = () => {
         />
       </Routes>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

@@ -1,17 +1,17 @@
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Users = () => {
-  const users = useSelector((state) => state.users);
-  const blogs = useSelector((state) => state.blogs.items);
+  const users = useSelector((state) => state.users)
+  const blogs = useSelector((state) => state.blogs.items)
 
   const blogCounts = blogs.reduce((acc, blog) => {
-    const userId = blog.user?.id;
+    const userId = blog.user?.id
     if (userId) {
-      acc[userId] = (acc[userId] || 0) + 1;
+      acc[userId] = (acc[userId] || 0) + 1
     }
-    return acc;
-  }, {});
+    return acc
+  }, {})
 
   return (
     <div>
@@ -37,7 +37,7 @@ const Users = () => {
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default Users;
+export default Users

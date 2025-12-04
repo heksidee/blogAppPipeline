@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Table } from 'react-bootstrap';
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Table } from 'react-bootstrap'
 
 const BlogList = () => {
-  const blogs = useSelector((state) => state.blogs.items);
+  const blogs = useSelector((state) => state.blogs.items)
 
   return (
     <div>
@@ -21,7 +21,7 @@ const BlogList = () => {
         </tbody>
       </Table>
     </div>
-  );
-};
+  )
+}
 
-export default BlogList;
+export default BlogList

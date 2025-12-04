@@ -1,35 +1,35 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateLikes, deleteBlog, addComment, setCommentDraft } from '../redux/blogSlice';
+import { useParams, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateLikes, deleteBlog, addComment, setCommentDraft } from '../redux/blogSlice'
 
 const Blog = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const blog = useSelector((state) => state.blogs.items.find((b) => b.id === id));
-  const user = useSelector((state) => state.user);
-  const commentDraft = useSelector((state) => state.blogs.commentDraft);
+  const blog = useSelector((state) => state.blogs.items.find((b) => b.id === id))
+  const user = useSelector((state) => state.user)
+  const commentDraft = useSelector((state) => state.blogs.commentDraft)
 
-  if (!blog) return <p>Blog not found</p>;
-  const isOwner = blog.user?.id === user?.id;
+  if (!blog) return <p>Blog not found</p>
+  const isOwner = blog.user?.id === user?.id
 
   const handleLikes = () => {
-    dispatch(updateLikes(blog));
-  };
+    dispatch(updateLikes(blog))
+  }
 
   const handleDelete = () => {
-    const confirm = window.confirm(`Sure you want to delete blog ${blog.title} by ${blog.author}?`);
+    const confirm = window.confirm(`Sure you want to delete blog ${blog.title} by ${blog.author}?`)
     if (confirm) {
-      dispatch(deleteBlog(blog.id));
-      navigate('/blogs');
+      dispatch(deleteBlog(blog.id))
+      navigate('/blogs')
     }
-  };
+  }
 
   const handleComment = (e) => {
-    e.preventDefault();
-    dispatch(addComment({ blogId: blog.id, comment: commentDraft }));
-  };
+    e.preventDefault()
+    dispatch(addComment({ blogId: blog.id, comment: commentDraft }))
+  }
 
   return (
     <>
@@ -86,7 +86,7 @@ const Blog = () => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Blog;
+export default Blog

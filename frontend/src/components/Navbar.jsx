@@ -1,20 +1,20 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../redux/userSlice';
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../redux/userSlice'
 
 const Navbar = () => {
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const padding = {
     color: '#4B0082',
-  };
+  }
 
   const handleLogout = () => {
-    dispatch(logout());
-    navigate('/', { replace: true });
-  };
+    dispatch(logout())
+    navigate('/', { replace: true })
+  }
 
   return (
     <div className="mt-2 d-flex justify-content-between align-items-center">
@@ -37,7 +37,7 @@ const Navbar = () => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
