@@ -1,0 +1,22 @@
+button {
+  background-color: #f078f0;
+  color: black;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+body {
+  background: rgb(49, 197, 135);
+}
+
+.custom-container {
+  max-width: 800px;
+}

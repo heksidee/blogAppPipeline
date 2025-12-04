@@ -1,0 +1,35 @@
+# Node.js riippuvuudet
+node_modules/
+
+# Build-kansiot
+dist/
+build/
+dist-ssr/
+
+# Lokit
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Paikalliset asetukset
+*.local
+.env
+.env.*.local
+
+# Editorien asetukset
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Testikattavuusraportit
+coverage/
