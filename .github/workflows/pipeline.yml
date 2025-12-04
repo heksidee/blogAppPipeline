@@ -26,8 +26,13 @@ jobs:
         run: npm run lint:all
 
       # Testaus
-      - name: Testing front- and backend
-        run: npm run test:all
+      - name: Testing backend
+        run: npm test --prefix backend
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+
+      - name: Testing frontend
+        run: npm test -prefix frontend
 
       # Build
       - name: Build frontend
