@@ -39,7 +39,7 @@ beforeEach(async () => {
   const loginResponse = await api
     .post('/api/login')
     .send({ username: 'testuser', password: 'salasana' })
-
+  console.log('Login response:', loginResponse.body)
   token = loginResponse.body.token
 
   const blogObject = initialBlogs.map((blog) => new Blog({ ...blog, user: user._id }))
