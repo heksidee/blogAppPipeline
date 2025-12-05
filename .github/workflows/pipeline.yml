@@ -28,9 +28,9 @@ jobs:
 
       # Testaukset
       - name: Testing backend
-        run: npm test --prefix backend
         env:
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+        run: npm test --prefix backend
 
       - name: Testing frontend
         run: npm test -prefix frontend
