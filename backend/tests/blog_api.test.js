@@ -39,8 +39,17 @@ beforeEach(async () => {
   const loginResponse = await api
     .post('/api/login')
     .send({ username: 'testuser', password: 'salasana' })
+    .expect(200) // Varmistaa, että login onnistuu
+    .expect('Content-Type', /application\/json/)
+
   console.log('Login response:', loginResponse.body)
+
   token = loginResponse.body.token
+  if (!token) {
+    console.error('Login failed, token not received!')
+  } else {
+    console.log('Token successfully received:', token)
+  }
 
   const blogObject = initialBlogs.map((blog) => new Blog({ ...blog, user: user._id }))
   const savedBlogs = await Promise.all(blogObject.map((blog) => blog.save()))
