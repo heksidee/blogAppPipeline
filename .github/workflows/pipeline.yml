@@ -33,6 +33,8 @@ jobs:
       - name: Testing backend
         env:
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+          NODE_ENV: test
+          SECRET: ${{ secrets.SECRET }}
         run: npm test --prefix backend
 
       # Build
