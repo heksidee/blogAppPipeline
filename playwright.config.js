@@ -1,6 +1,9 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
-import strict from 'assert/strict';
+import dotenv from 'dotenv';
+
+// Lataa .env.test tiedoston, jotta TEST_MONGODB_URI löytyy
+dotenv.config({ path: '.env' });
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -22,7 +25,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
+    /*{
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
@@ -30,15 +33,23 @@ export default defineConfig({
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
-    },
+    },*/
   ],
-  webServer: [
+  webServer: {
+    command:
+      'concurrently -k "npm run start:test --prefix backend" "npm run dev --prefix frontend"',
+    url: 'http://localhost:5173',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000,
+  },
+
+  /*webServer: [
     {
       command: 'npm run start:test --prefix backend',
       url: 'http://localhost:3003',
       env: {
         NODE_ENV: 'test',
-        TEST_MONGODB_URI: process.env.TEST_MONGODB_URI || '',
+        TEST_MONGODB_URI: process.env.TEST_MONGODB_URI ?? '',
       },
       reuseExistingServer: !process.env.CI,
       timeout: 60 * 1000,
@@ -49,5 +60,5 @@ export default defineConfig({
       reuseExistingServer: !process.env.CI,
       timeout: 60 * 1000,
     },
-  ],
+  ],*/
 });

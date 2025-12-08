@@ -44,10 +44,11 @@ const App = () => {
     event.preventDefault()
 
     try {
-      await dispatch(loginUser({ username, password }))
+      const user = await dispatch(loginUser({ username, password })).unwrap()
       setUsername('')
       setPassword('')
-      notify(`User ${username} logged in`, 'success')
+      notify(`User ${user.username} logged in`, 'success')
+      console.log(user.username)
     } catch (error) {
       notify('wrong username or password', 'error')
     }
@@ -72,29 +73,29 @@ const App = () => {
       <h2 className="mb-4">Login</h2>
       <div className="mb-3">
         <label htmlFor="username" className="form-label">
-          username
-          <input
-            type="text"
-            className="form-control"
-            id="username"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
+          Username
         </label>
+        <input
+          type="text"
+          className="form-control"
+          id="username"
+          value={username}
+          name="username"
+          onChange={({ target }) => setUsername(target.value)}
+        />
       </div>
       <div className="mb-3">
         <label htmlFor="password" className="form-label">
-          password
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
+          Password
         </label>
+        <input
+          type="password"
+          className="form-control"
+          id="password"
+          value={password}
+          name="password"
+          onChange={({ target }) => setPassword(target.value)}
+        />
       </div>
       <button type="submit">Login</button>
     </form>
