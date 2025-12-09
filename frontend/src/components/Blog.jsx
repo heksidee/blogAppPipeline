@@ -45,7 +45,7 @@ const Blog = () => {
           </p>
           <p className="card-text">
             <strong>Likes:</strong>
-            <button onClick={handleLikes} className="ms-2">
+            <button onClick={handleLikes} className="ms-2" data-testid="like-button">
               {blog.likes}
             </button>
           </p>

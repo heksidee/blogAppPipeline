@@ -10,7 +10,7 @@ dotenv.config({ path: '.env' });
  */
 export default defineConfig({
   testDir: './playwright-tests',
-  fullyParallel: true,
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
@@ -35,13 +35,31 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },*/
   ],
-  webServer: {
+  webServer: [
+    {
+      command: 'npm run start:test --prefix backend',
+      url: 'http://localhost:3003',
+      env: {
+        NODE_ENV: 'test',
+        TEST_MONGODB_URI: process.env.TEST_MONGODB_URI ?? '',
+      },
+      reuseExistingServer: !process.env.CI,
+      timeout: 120 * 1000,
+    },
+    {
+      command: 'npm run dev --prefix frontend',
+      url: 'http://localhost:5173',
+      reuseExistingServer: !process.env.CI,
+      timeout: 60 * 1000,
+    },
+  ],
+  /*webServer: {
     command:
       'concurrently -k "npm run start:test --prefix backend" "npm run dev --prefix frontend"',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
-  },
+  },*/
 
   /*webServer: [
     {
@@ -55,7 +73,7 @@ export default defineConfig({
       timeout: 60 * 1000,
     },
     {
-      command: 'npm run dev --prefix frontend',
+      command: 'npm run dev:test --prefix frontend',
       url: 'http://localhost:5173',
       reuseExistingServer: !process.env.CI,
       timeout: 60 * 1000,
