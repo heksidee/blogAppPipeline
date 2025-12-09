@@ -37,8 +37,9 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'npm run start:test --prefix backend',
+      command: 'npm run start:test',
       url: 'http://localhost:3003',
+      cwd: './backend',
       env: {
         NODE_ENV: 'test',
         TEST_MONGODB_URI: process.env.TEST_MONGODB_URI ?? '',
@@ -47,7 +48,8 @@ export default defineConfig({
       timeout: 120 * 1000,
     },
     {
-      command: 'npm run dev --prefix frontend',
+      command: 'npm run dev',
+      cwd: './frontend',
       url: 'http://localhost:5173',
       reuseExistingServer: !process.env.CI,
       timeout: 60 * 1000,
