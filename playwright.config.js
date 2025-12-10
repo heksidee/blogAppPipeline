@@ -35,7 +35,7 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },*/
   ],
-  webServer: [
+  /*webServer: [
     {
       command: 'npm run start:test',
       url: 'http://localhost:3003',
@@ -54,5 +54,11 @@ export default defineConfig({
       reuseExistingServer: !process.env.CI,
       timeout: 60 * 1000,
     },
-  ],
+  ],*/
+  webServer: {
+    command: 'npm run preview --prefix frontend',
+    url: 'http://localhost:4173', // Vite preview käyttää oletuksena 4173
+    reuseExistingServer: !process.env.CI,
+    timeout: 60 * 1000,
+  },
 });

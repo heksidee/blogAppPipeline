@@ -16,24 +16,31 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      # Asentaa riippuvuudet
       - name: Install root dependencies
         run: npm ci
       - name: Install backend dependencies
-        run: |
-          cd backend
-          npm ci
+        run: npm ci --prefix backend
       - name: Install frontend dependencies
-        run: |
-          cd frontend
-          npm ci
+        run: npm ci --prefix frontend
+
+      # Build frontend
       - name: Build frontend
-        run: |
-          cd frontend
-          npm run build
+        run: npm run build --prefix frontend
+
+      # Käynnistetään backend
+      - name: Start backend
+        run: npm run start:test --prefix backend &
+
+      # Asennetaan playwright selaimet
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
+      # Ajetaan playwright testit
       - name: Run Playwright tests
         run: npm run test:e2e
+
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
