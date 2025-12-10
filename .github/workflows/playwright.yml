@@ -31,7 +31,7 @@ jobs:
 
       # Käynnistetään backend
       - name: Start backend
-        run: npm run start:test --prefix backend &
+        run: nohup npm run start:test --prefix backend & echo $! > backend.pid
 
       # Asennetaan playwright selaimet
       - name: Install Playwright Browsers
@@ -40,6 +40,10 @@ jobs:
       # Ajetaan playwright testit
       - name: Run Playwright tests
         run: npx wait-on http://localhost:3003 && npx playwright test
+
+      # Sulkee backendin
+      - name: Stop backend
+        run: kill $(cat backend.pid)
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
