@@ -29,18 +29,13 @@ jobs:
       - name: Build frontend
         run: npm run build --prefix frontend
 
-      - name: Start backend
-        run: nohup npm run start:test --prefix backend > backend.log 2>&1 & echo $! > backend.pid
-      - name: Show backend log
-        run: sleep 5 && cat backend.log
-
       # Asennetaan playwright selaimet
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
       # Ajetaan playwright testit
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npm run test:e2e
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
