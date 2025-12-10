@@ -48,8 +48,7 @@ export default defineConfig({
       timeout: 120 * 1000,
     },
     {
-      command: 'npm run dev',
-      cwd: './frontend',
+      command: 'npm run dev --prefix frontend',
       url: 'http://localhost:5173',
       reuseExistingServer: !process.env.CI,
       timeout: 60 * 1000,
