@@ -32,7 +32,7 @@ jobs:
       - name: Start backend
         run: nohup npm run start:test --prefix backend > backend.log 2>&1 & echo $! > backend.pid
       - name: Show backend log
-        run: cat backend.log
+        run: sleep 5 && cat backend.log
 
       # Asennetaan playwright selaimet
       - name: Install Playwright Browsers
