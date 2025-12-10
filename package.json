@@ -7,7 +7,7 @@
     "start:backend": "npm run start:test --prefix backend",
     "lint:all": "npm run lint --prefix backend && npm run lint --prefix frontend",
     "test:all": "npm run test --prefix backend && npm run test --prefix frontend",
-    "test:e2e": "concurrently -k -s first \"npm run start:backend\" \"wait-on http://localhost:3003 && playwright test\""
+    "test:e2e": "concurrently -k -s second \"npm run start:backend\" \"wait-on http://localhost:3003 && playwright test\""
   },
   "keywords": [],
   "author": "",

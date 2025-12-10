@@ -39,7 +39,7 @@ jobs:
 
       # Ajetaan playwright testit
       - name: Run Playwright tests
-        run: npm run test:e2e
+        run: npx wait-on http://localhost:3003 && npx playwright test
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
