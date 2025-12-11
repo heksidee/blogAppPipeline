@@ -36,7 +36,7 @@ export default defineConfig({
     },*/
   ],
   webServer: [
-    /*{
+    {
       command: 'npm run start:test --prefix backend',
       url: 'http://localhost:3003',
       env: {
@@ -46,7 +46,7 @@ export default defineConfig({
       },
       reuseExistingServer: !process.env.CI,
       timeout: 120 * 1000,
-    },*/
+    },
     {
       command: 'npm run dev --prefix frontend',
       url: 'http://localhost:5173',
